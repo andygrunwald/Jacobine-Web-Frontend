@@ -59,6 +59,11 @@ class Filesize extends Base {
         $XAxisOptions->setTitle(array('text' => 'Releases', 'enabled' => true));
         $XAxisOptions->setLabels(array('rotation' => 45, 'y' => 20));
         $XAxisOptions->setMaxZoom(1);
+        $XAxisOptions->setMin(20);
+        $XAxisOptions->setMax(50);
+
+        $scrollbarOptions = new Container('scrollbar');
+        $scrollbarOptions->setEnabled(true);
 
         // yAxis
         $YAxisOptions = new Container('yAxis');
@@ -84,6 +89,7 @@ class Filesize extends Base {
               ->addOptions($YAxisOptions)
               ->addOptions($XAxisOptions)
               ->addOptions($creditsOptions)
+              ->addOptions($scrollbarOptions)
               ->setData($data)
               ->setRenderer(new Line());
 

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "catchamonkey/phighcharts": "dev-master",
+        "twitter/bootstrap": "v2.3.2"
+    }
+}

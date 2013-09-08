@@ -1,0 +1,30 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="/"><f:cObject typoscriptObjectPath="analysis.logo" /></a>
+            <div class="nav-collapse collapse">
+                <f:cObject typoscriptObjectPath="analysis.menu.main" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <f:cObject typoscriptObjectPath="analysis.menu.sub" />
+        <div class="span9">
+            <div class="row-fluid">
+                <f:cObject typoscriptObjectPath="analysis.content.main" />
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p><f:cObject typoscriptObjectPath="analysis.copyright" /></p>
+    </footer>
+</div>

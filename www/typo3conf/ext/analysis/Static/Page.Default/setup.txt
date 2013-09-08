@@ -1,0 +1,13 @@
+#########################
+# Includes
+#########################
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/content.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/menu.main.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/menu.sub.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/logo.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/copyright.ts">
+
+#########################
+# Main setup
+#########################
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/setup.main.ts">

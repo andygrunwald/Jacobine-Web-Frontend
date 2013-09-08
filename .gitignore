@@ -1,4 +1,25 @@
 .DS_Store
 .idea
 
+# Various folder to store temp files
 Various
+
+# TYPO3 related ignores
+www/fileadmin/_temp_/*
+www/fileadmin/user_upload/*
+
+www/typo3conf/ENABLE_INSTALL_TOOL
+www/typo3conf/deprecation_*
+
+# Localconf + Additionalconf are ignored due to security reasons
+www/typo3conf/LocalConfiguration.php
+www/typo3conf/AdditionalConfiguration.php
+
+www/typo3conf/l10n/*
+
+www/typo3temp/*
+
+www/uploads/media/*
+www/uploads/pics/*
+
+www/typo3conf/ext/analysis/vendor/*

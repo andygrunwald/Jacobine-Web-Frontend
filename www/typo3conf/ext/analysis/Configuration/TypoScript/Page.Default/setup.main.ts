@@ -17,7 +17,11 @@ config {
     xhtml_cleaning = all
     disablePrefixComment = 1
     inlineStyle2TempFile = 1
-    removeDefaultJS = 0
+    removeDefaultJS = external
+    concatenateJs = 1
+    concatenateCss = 1
+    compressJs = 1
+    compressCss = 1
     renderCharset = utf-8
     sys_language_uid = 0
     # REAL URL 1 = Enable, 0 = Disable
@@ -26,14 +30,8 @@ config {
     locale_all = de_DE@euro
     linkVars = L(int)
     simulateStaticDocuments = 0
-    headerComment (
-        -->
-            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <!--
-    )
     spamProtectEmailAddresses = 13
     spamProtectEmailAddresses_atSubst = (at)
-    # Base URL
     baseURL = http://analysis.local
 }
 
@@ -44,10 +42,10 @@ config {
 page = PAGE
 page {
     typeNum = 0
+    meta.X-UA-Compatible = IE=edge,chrome=1
 
     # Favicon
     shortcutIcon = {$path.full.img}favicon.ico
-
     stylesheet =  {$path.full.css}bootstrap.css
 
     # additional CSS includes

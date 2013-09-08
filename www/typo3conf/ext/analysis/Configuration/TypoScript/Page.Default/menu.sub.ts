@@ -2,10 +2,12 @@
 analysis.menu.sub = COA
 analysis.menu.sub {
     10 = HMENU
+    /*
     10.if.isTrue.numRows {
         table = pages
         where = pid=this
     }
+    */
     10.wrap = <ul class="nav nav-list">|</ul>
     10.entryLevel = 1
 

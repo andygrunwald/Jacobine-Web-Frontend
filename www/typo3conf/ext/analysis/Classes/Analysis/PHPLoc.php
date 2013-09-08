@@ -34,6 +34,13 @@ use Phighchart\Options\Container;
 use Phighchart\Data;
 use Phighchart\Renderer\Line;
 
+/**
+ * Class PHPLoc
+ *
+ * PHPLoc (loc, cloc, ...) of extracted releases
+ *
+ * @package Extension\Analysis\Analysis
+ */
 class PHPLoc extends Base {
 
     /**

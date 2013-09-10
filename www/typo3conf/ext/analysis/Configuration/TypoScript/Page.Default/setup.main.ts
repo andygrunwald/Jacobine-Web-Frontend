@@ -24,8 +24,7 @@ config {
     compressCss = 1
     renderCharset = utf-8
     sys_language_uid = 0
-    # REAL URL 1 = Enable, 0 = Disable
-    tx_realurl_enable = 0
+    tx_realurl_enable = 1
     language = de
     locale_all = de_DE@euro
     linkVars = L(int)

@@ -30,7 +30,7 @@
 
 ### End: Browser caching of ressource files ###
 
-#<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c>
 
 # Enable URL rewriting
 RewriteEngine On
@@ -64,4 +64,4 @@ RewriteCond %{REQUEST_FILENAME} !-l
 # RewriteRule .* /TYPO3root/index.php [L]
 RewriteRule .* index.php [L]
 
-#</IfModule>
+</IfModule>

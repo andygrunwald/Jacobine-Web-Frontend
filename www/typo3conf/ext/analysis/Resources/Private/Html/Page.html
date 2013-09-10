@@ -16,8 +16,15 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <f:cObject typoscriptObjectPath="analysis.menu.sub" />
-        <div class="span9">
+        <f:if condition="{layout} < 1">
+            <f:then>
+                <f:cObject typoscriptObjectPath="analysis.menu.sub" />
+                <div class="span9">
+            </f:then>
+            <f:else>
+                <div class="span12">
+            </f:else>
+        </f:if>
             <div class="row-fluid">
                 <f:cObject typoscriptObjectPath="analysis.content.main" />
             </div>

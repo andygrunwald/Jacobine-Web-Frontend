@@ -72,7 +72,7 @@ page {
         layoutRootPath = {$path.full.html}Layouts/
         variables {
             layout = TEXT
-            layout.data = page:backend_layout
+            layout.data = page:layout
         }
     }
 }

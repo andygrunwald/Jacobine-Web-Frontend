@@ -6,3 +6,8 @@ if (!defined('TYPO3_MODE')) {
 use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 ExtensionManagementUtility::addPItoST43($_EXTKEY, 'ContentMain/class.tx_analysis_pi_content_main.php', '_pi1', 'list_type', 1);
+
+/**
+ * PageTsConfig
+ */
+ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:analysis/Configuration/TSConfig/pageTsConfig.ts">');

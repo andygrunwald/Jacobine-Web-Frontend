@@ -28,12 +28,6 @@
 
 namespace Extension\Analysis\Analysis;
 
-use Extension\Analysis\Phighchart\Format\XAxisCategories;
-use Phighchart\Chart;
-use Phighchart\Options\Container;
-use Phighchart\Data;
-use Phighchart\Renderer\Line;
-
 /**
  * Class PHPLoc
  *
@@ -49,116 +43,78 @@ class PHPLoc extends Base {
      * @return string
      */
     public function generate() {
-        $dataSets = $this->getData();
-        list($categories, $dataSets) = $this->prepareData($dataSets);
+        $this->setTemplateVariable(array(
+            'container' => array(
+                'id' => 'chart_phploc',
+            )
+        ));
 
-        $titleOptions = new Container('title');
-        $titleOptions->setText('Programming languages per release');
-
-        // xAxis
-        $XAxisOptions = new Container('xAxis');
-        $XAxisOptions->setTitle(array('text' => 'Releases', 'enabled' => true));
-        $XAxisOptions->setLabels(array('rotation' => 45, 'y' => 20));
-        $XAxisOptions->setCategories($categories);
-        $XAxisOptions->setMaxZoom(1);
-        $XAxisOptions->setMin(20);
-        $XAxisOptions->setMax(50);
-
-        $scrollbarOptions = new Container('scrollbar');
-        $scrollbarOptions->setEnabled(true);
-
-        // yAxis
-        $YAxisOptions = new Container('yAxis');
-        $YAxisOptions->setTitle(array('text' => 'Percent', 'enabled' => true));
-
-        $options = new Container('chart');
-        $options->setRenderTo('chart_phploc');
-        $options->setZoomType('x');
-
-        $creditsOptions = new Container('credits');
-        $creditsOptions->setEnabled(false);
-
-        $data = new Data();
-        foreach ($dataSets as $statistic => $series) {
-            $data->addSeries($statistic, $series);
-        }
-
-        $chart = new Chart();
-        $chart->setFormat(new XAxisCategories())
-              ->addOptions($options)
-              ->addOptions($titleOptions)
-              ->addOptions($YAxisOptions)
-              ->addOptions($XAxisOptions)
-              ->addOptions($creditsOptions)
-              ->addOptions($scrollbarOptions)
-              ->setData($data)
-              ->setRenderer(new Line());
-
-        $this->setContent($chart->renderContainer());
-        $this->setJavaScript($chart->render());
+        $this->setJavaScriptFiles(array('PHPLoc.js'));
 
         return true;
     }
 
-    private function getData() {
+    public function getData() {
+        $dataSets = $this->execDataQuery();
+        $dataSets = $this->prepareData($dataSets);
+
+        return $dataSets;
+    }
+
+    private function execDataQuery() {
         $database = $this->getAnalyticDatabase();
 
+        /*
+         * TODO: Check comment of ... correct this and implement them, too!
+         *  * lloc_by_noc => Logical Lines of Code (LLOC) - Classes - Average Class Length
+         *  * lloc_by_nom => Logical Lines of Code (LLOC) - Classes - Average Method Length
+         *  * lloc_by_nof => Logical Lines of Code (LLOC) - Functions - Average Function Length
+         */
         $select = '
             v.version,
-            p.directories,
-            p.files';
-        /*
-        $select = '
-            v.version,
-            p.directories,
-            p.files,
-            p.loc,
-            p.cloc,
-            p.ncloc,
-            p.ccn,
-            p.ccn_methods,
-            p.interfaces,
-            p.traits,
-            p.classes,
-            p.abstract_classes,
-            p.concrete_classes,
-            p.anonymous_functions,
-            p.functions,
-            p.methods,
-            p.public_methods,
-            p.non_public_methods,
-            p.non_static_methods,
-            p.static_methods,
-            p.constants,
-            p.class_constants,
-            p.global_constants,
-            p.test_classes,
-            p.test_methods,
-            p.ccn_by_loc,
-            p.ccn_by_nom,
-            p.namespaces';
-        */
-        /*
-         * p.ccn_by_lloc,
-            p.lloc,
-            p.lloc_classes,
-            p.lloc_functions,
-            p.lloc_global,
-            p.named_functions,
-            p.lloc_by_noc,
-            p.lloc_by_nom,
-            p.lloc_by_nof,
-            p.method_calls,
-            p.static_method_calls,
-            p.instance_method_calls,
-            p.attribute_accesses,
-            p.static_attribute_accesses,
-            p.instance_attribute_accesses,
-            p.global_accesses,
-            p.global_variable_accesses,
-            p.super_global_variable_accesses,
-            p.global_constant_accesses';
-        */
+            p.directories AS `Directories`,
+            p.files AS `Files`,
+            p.loc AS `Lines of Code (LOC)`,
+            p.cloc AS `Comment Lines of Code (CLOC)`,
+            p.ncloc AS `Non-Comment Lines of Code (NCLOC)`,
+            p.ccn AS `Cyclomatic Complexity`,
+            p.ccn_methods AS `Cyclomatic Complexity of methods`,
+            p.interfaces AS `Interfaces`,
+            p.traits AS `Traits`,
+            p.classes AS `Classes`,
+            p.abstract_classes AS `Abstract classes`,
+            p.concrete_classes AS `Concrete classes`,
+            p.anonymous_functions AS `Anonymous functions`,
+            p.functions AS `Functions`,
+            p.methods AS `Methods`,
+            p.public_methods AS `Public methods`,
+            p.non_public_methods AS `Non public methods`,
+            p.non_static_methods AS `Non static methods`,
+            p.static_methods AS `Static methods`,
+            p.constants AS `Constants`,
+            p.class_constants AS `Class constants`,
+            p.global_constants AS `Global constants`,
+            p.test_classes AS `Test classes`,
+            p.test_methods AS `Test methods`,
+            p.ccn_by_lloc AS `Cyclomatic Complexity / LLOC`,
+            p.ccn_by_nom AS `Cyclomatic Complexity / Number of Methods`,
+            p.namespaces AS `Namespaces`,
+            p.lloc AS `Logical Lines of Code (LLOC)`,
+            p.lloc_classes AS `Logical Lines of Code (LLOC) in Classes`,
+            p.lloc_functions AS `Logical Lines of Code (LLOC) in Functions`,
+            p.lloc_global AS `Logical Lines of Code (LLOC) Not in classes or functions`,
+            p.named_functions AS `Named functions`,
+            p.method_calls AS `Method Calls`,
+            p.static_method_calls AS `Method Calls (static methods)`,
+            p.instance_method_calls AS `Method Calls (non static)`,
+            p.attribute_accesses AS `Attribute Accesses`,
+            p.static_attribute_accesses AS `Attribute Accesses (static)`,
+            p.instance_attribute_accesses AS `Attribute Accesses (non static)`,
+            p.global_accesses AS `Global Accesses`,
+            p.global_variable_accesses AS `Global Accesses - Global Variables`,
+            p.super_global_variable_accesses AS `Global Accesses - Super-Global Variables`,
+            p.global_constant_accesses AS `Global Accesses - Global Constants`';
+
         $from = '
             phploc p INNER JOIN versions v ON (
                 p.version = v.id

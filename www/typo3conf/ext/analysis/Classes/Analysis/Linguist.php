@@ -28,12 +28,6 @@
 
 namespace Extension\Analysis\Analysis;
 
-use Extension\Analysis\Phighchart\Format\XAxisCategories;
-use Phighchart\Chart;
-use Phighchart\Options\Container;
-use Phighchart\Data;
-use Phighchart\Renderer\Line;
-
 class Linguist extends Base {
 
     /**
@@ -42,58 +36,25 @@ class Linguist extends Base {
      * @return string
      */
     public function generate() {
-        $dataSets = $this->getData();
-        list($categories, $dataSets) = $this->prepareData($dataSets);
+        $this->setTemplateVariable(array(
+            'container' => array(
+                'id' => 'chart_languages',
+            )
+        ));
 
-        $titleOptions = new Container('title');
-        $titleOptions->setText('Programming languages per release');
-
-        // xAxis
-        $XAxisOptions = new Container('xAxis');
-        $XAxisOptions->setTitle(array('text' => 'Releases', 'enabled' => true));
-        $XAxisOptions->setLabels(array('rotation' => 45, 'y' => 20));
-        $XAxisOptions->setCategories($categories);
-        $XAxisOptions->setMaxZoom(1);
-        $XAxisOptions->setMin(20);
-        $XAxisOptions->setMax(50);
-
-        $scrollbarOptions = new Container('scrollbar');
-        $scrollbarOptions->setEnabled(true);
-
-        // yAxis
-        $YAxisOptions = new Container('yAxis');
-        $YAxisOptions->setTitle(array('text' => 'Percent', 'enabled' => true));
-
-        $options = new Container('chart');
-        $options->setRenderTo('chart_languages');
-        $options->setZoomType('x');
-
-        $creditsOptions = new Container('credits');
-        $creditsOptions->setEnabled(false);
-
-        $data = new Data();
-        foreach ($dataSets as $language => $series) {
-            $data->addSeries($language, $series);
-        }
-
-        $chart = new Chart();
-        $chart->setFormat(new XAxisCategories())
-              ->addOptions($options)
-              ->addOptions($titleOptions)
-              ->addOptions($YAxisOptions)
-              ->addOptions($XAxisOptions)
-              ->addOptions($creditsOptions)
-              ->addOptions($scrollbarOptions)
-              ->setData($data)
-              ->setRenderer(new Line());
-
-        $this->setContent($chart->renderContainer());
-        $this->setJavaScript($chart->render());
+        $this->setJavaScriptFiles(array('Linguist.js'));
 
         return true;
     }
 
-    private function getData() {
+    public function getData() {
+        $dataSets = $this->execDataQuery();
+        $dataSets = $this->prepareData($dataSets);
+
+        return $dataSets;
+    }
+
+    private function execDataQuery() {
         $database = $this->getAnalyticDatabase();
 
         $select = 'v.version, l.language, l.percent';

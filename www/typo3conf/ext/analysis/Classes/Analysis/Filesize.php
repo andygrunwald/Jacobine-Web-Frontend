@@ -28,11 +28,6 @@
 
 namespace Extension\Analysis\Analysis;
 
-use Phighchart\Chart;
-use Phighchart\Options\Container;
-use Phighchart\Data;
-use Phighchart\Renderer\Line;
-
 /**
  * Class Filesize
  *
@@ -48,58 +43,25 @@ class Filesize extends Base {
      * @return string
      */
     public function generate() {
-        $dataSets = $this->getData();
-        $dataSets = $this->prepareData($dataSets);
+        $this->setTemplateVariable(array(
+            'container' => array(
+                'id' => 'chart_filesize',
+            )
+        ));
 
-        $titleOptions = new Container('title');
-        $titleOptions->setText('tar.gz archives in (mega) byte');
-
-        // xAxis
-        $XAxisOptions = new Container('xAxis');
-        $XAxisOptions->setTitle(array('text' => 'Releases', 'enabled' => true));
-        $XAxisOptions->setLabels(array('rotation' => 45, 'y' => 20));
-        $XAxisOptions->setMaxZoom(1);
-        $XAxisOptions->setMin(20);
-        $XAxisOptions->setMax(50);
-
-        $scrollbarOptions = new Container('scrollbar');
-        $scrollbarOptions->setEnabled(true);
-
-        // yAxis
-        $YAxisOptions = new Container('yAxis');
-        $YAxisOptions->setTitle(array('text' => 'Size in megabyte', 'enabled' => true));
-
-        $creditsOptions = new Container('credits');
-        $creditsOptions->setEnabled(false);
-
-        $options = new Container('chart');
-        $options->setRenderTo('chart_filesize');
-        $options->setZoomType('x');
-
-        $legendOptions = new Container('legend');
-        $legendOptions->setEnabled(false);
-
-        $data = new Data();
-        $data->addSeries('Filesize', $dataSets);
-
-        $chart = new Chart();
-        $chart->addOptions($options)
-              ->addOptions($titleOptions)
-              ->addOptions($legendOptions)
-              ->addOptions($YAxisOptions)
-              ->addOptions($XAxisOptions)
-              ->addOptions($creditsOptions)
-              ->addOptions($scrollbarOptions)
-              ->setData($data)
-              ->setRenderer(new Line());
-
-        $this->setContent($chart->renderContainer());
-        $this->setJavaScript($chart->render());
+        $this->setJavaScriptFiles(array('Filesize.js'));
 
         return true;
     }
 
-    private function getData() {
+    public function getData() {
+        $dataSets = $this->execDataQuery();
+        $dataSets = $this->prepareData($dataSets);
+
+        return $dataSets;
+    }
+
+    private function execDataQuery() {
         $database = $this->getAnalyticDatabase();
 
         $select = 'version, size_tar';

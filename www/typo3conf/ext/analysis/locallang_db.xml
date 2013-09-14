@@ -6,8 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tt_content.list_type.pi1">Analysis: Charts</label>
-			<label index="tt_content.list_type.pi1_description">Various charts :)</label>
+			<!-- <label index="tt_content.list_type.pi1">Analysis: Charts</label> -->
 		</languageKey>
 	</data>
 </T3locallang>

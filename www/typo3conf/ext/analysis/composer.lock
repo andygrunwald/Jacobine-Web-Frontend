@@ -3,53 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f23b2b3ff43c69cba943650e530747fc",
+    "hash": "38eb7b6d60166753af3f62da2f290995",
     "packages": [
-        {
-            "name": "catchamonkey/phighcharts",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/catchamonkey/phighcharts.git",
-                "reference": "1b3b2912bf691377e30f43eba9a909b0c975e794"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/catchamonkey/phighcharts/zipball/1b3b2912bf691377e30f43eba9a909b0c975e794",
-                "reference": "1b3b2912bf691377e30f43eba9a909b0c975e794",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Phighchart": "classes"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Sedlmayr",
-                    "email": "chris@sedlmayr.co.uk",
-                    "homepage": "http://chris.sedlmayr.co.uk",
-                    "role": "Software Engineer"
-                }
-            ],
-            "description": "A PHP library for the Highcharts JavaScript charting library",
-            "homepage": "http://github.com/catchamonkey/phighcharts",
-            "keywords": [
-                "chart",
-                "charting",
-                "highcharts",
-                "wrapper"
-            ],
-            "time": "2013-09-05 18:44:56"
-        },
         {
             "name": "twitter/bootstrap",
             "version": "v2.3.2",
@@ -85,9 +40,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "catchamonkey/phighcharts": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": [
 
     ],

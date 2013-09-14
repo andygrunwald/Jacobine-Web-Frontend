@@ -1,0 +1,33 @@
+<p>
+    The <f:link.external uri="{analysis.serverhost}">Gerrit-Server of {analysis.servername}</f:link.external> got:
+</p>
+<ul>
+    <li>
+        <strong class="text-info">
+            <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{analysis.project}</f:format.number>
+        </strong> different projects
+    </li>
+    <li>
+        <strong class="text-info">
+            <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{analysis.changeset}</f:format.number>
+        </strong> changesets
+    </li>
+    <li>
+        <strong class="text-info">
+            <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{analysis.patchset}</f:format.number>
+        </strong> patchsets
+    </li>
+    <li>
+        <strong class="text-info">
+            <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{analysis.approval}</f:format.number>
+        </strong> approvals
+    </li>
+    <li>
+        <strong class="text-info">
+            <f:format.number decimals="0" decimalSeparator="," thousandsSeparator=".">{analysis.comment}</f:format.number>
+        </strong> comments
+    </li>
+</ul>
+<p>
+    This awesome numbers were produced by <strong class="text-info">{analysis.person}</strong> <i>different</i> persons! Awesome, isn`t it?
+</p>

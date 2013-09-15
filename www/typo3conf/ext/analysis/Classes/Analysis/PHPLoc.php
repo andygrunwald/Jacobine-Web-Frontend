@@ -64,12 +64,6 @@ class PHPLoc extends Base {
     private function execDataQuery() {
         $database = $this->getAnalyticDatabase();
 
-        /*
-         * TODO: Check comment of ... correct this and implement them, too!
-         *  * lloc_by_noc => Logical Lines of Code (LLOC) - Classes - Average Class Length
-         *  * lloc_by_nom => Logical Lines of Code (LLOC) - Classes - Average Method Length
-         *  * lloc_by_nof => Logical Lines of Code (LLOC) - Functions - Average Function Length
-         */
         $select = '
             v.version,
             p.directories AS `Directories`,
@@ -98,6 +92,9 @@ class PHPLoc extends Base {
             p.test_methods AS `Test methods`,
             p.ccn_by_lloc AS `Cyclomatic Complexity / LLOC`,
             p.ccn_by_nom AS `Cyclomatic Complexity / Number of Methods`,
+            p.lloc_by_noc AS `Average class length`,
+            p.lloc_by_nom AS `Average method length`,
+            p.lloc_by_nof AS `Average function length`,
             p.namespaces AS `Namespaces`,
             p.lloc AS `Logical Lines of Code (LLOC)`,
             p.lloc_classes AS `Logical Lines of Code (LLOC) in Classes`,

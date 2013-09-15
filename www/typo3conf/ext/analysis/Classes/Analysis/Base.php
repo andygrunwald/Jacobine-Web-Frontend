@@ -188,7 +188,7 @@ abstract class Base {
     /**
      * Gets the analytic database connection
      *
-     * @return null|\TYPO3\CMS\Core\Database\DatabaseConnection
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
      */
     public function getAnalyticDatabase() {
         return $this->analyticDatabase;

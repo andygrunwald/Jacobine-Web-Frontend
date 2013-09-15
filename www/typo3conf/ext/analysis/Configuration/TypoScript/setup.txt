@@ -3,6 +3,11 @@ plugin.tx_analysis {
 	settings {
 
 	}
+
+	features {
+		skipDefaultArguments = 1
+	}
+
 	#persistence {
 	#	storagePid = {$plugin.tx_blogexample.persistence.storagePid}
 	#}

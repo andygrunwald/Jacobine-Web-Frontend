@@ -66,7 +66,7 @@ class ChartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // What happen if we add more variables?
         if ($request->hasArgument('project') === true) {
             $analysisConfiguration = array(
-                'project' => $request->getArgument('project')
+                'project' => intval($request->getArgument('project'))
             );
         }
 

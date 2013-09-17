@@ -1,0 +1,14 @@
+<div class="well text-center">
+    <p>Choose a git project for detailled analysis for <b>your</b> project!</p>
+    <f:form action="project" controller="Chart" method="post" class="form-horizontal">
+        <f:form.select name="project" options="{project.values}" value="{project.active}" />
+        <f:form.submit name="submitButton" value="Get analysis" class="btn btn-primary">Get analysis</f:form.submit>
+    </f:form>
+</div>
+
+<f:format.html parseFuncTSPath="">{content}</f:format.html>
+<script type="text/javascript">
+    <f:format.html parseFuncTSPath="">{javascript}</f:format.html>
+</script>
+
+<div id="{container.id}"></div>

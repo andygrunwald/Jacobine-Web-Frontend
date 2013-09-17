@@ -56,11 +56,19 @@ class ChartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function indexAction() {
         $cObjData = $this->configurationManager->getContentObject();
+        $request = $this->getControllerContext()->getRequest();
 
         $className = $cObjData->data['select_key'];
         $className = Naming::analysisClassName($className);
 
         $analysisConfiguration = array();
+        // This part is not very beautiful
+        // What happen if we add more variables?
+        if ($request->hasArgument('project') === true) {
+            $analysisConfiguration = array(
+                'project' => $request->getArgument('project')
+            );
+        }
 
         // Execute the analysis
         $analysisDatabase = Database::getAnalysisDatabaseConnection();
@@ -70,20 +78,19 @@ class ChartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // Chose a different template if necessary
         $templateName = $analysisObj->getTemplate();
         if ($templateName !== null) {
-            $extPath = ExtensionManagementUtility::extPath($this->request->getControllerExtensionKey());
-            $pathParts = ['Resources', 'Private', 'Templates', $this->request->getControllerName(), self::CHART_TEMPLATE_FOLDER, $templateName];
+            $extPath = ExtensionManagementUtility::extPath($request->getControllerExtensionKey());
+            $pathParts = ['Resources', 'Private', 'Templates', $request->getControllerName(), self::CHART_TEMPLATE_FOLDER, $templateName];
             $templatePath = $extPath . implode(DIRECTORY_SEPARATOR, $pathParts) . '.html';
             $this->view->setTemplatePathAndFilename($templatePath);
         }
 
         $javaScriptFiles = $analysisObj->getJavaScriptFiles();
 
-
         if (count($javaScriptFiles) > 0) {
             $pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
             /** @var $pageRenderer \TYPO3\CMS\Core\Page\PageRenderer */
 
-            $siteRelPath = ExtensionManagementUtility::siteRelPath($this->request->getControllerExtensionKey());
+            $siteRelPath = ExtensionManagementUtility::siteRelPath($request->getControllerExtensionKey());
             foreach($javaScriptFiles as $jsFile) {
                 $pathParts = ['Resources', 'Public', 'Js', 'Charts', $jsFile];
                 $jsFilePath = $siteRelPath . implode(DIRECTORY_SEPARATOR, $pathParts);
@@ -96,5 +103,34 @@ class ChartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'javascript' => $analysisObj->getJavaScript()
         );
         $this->view->assignMultiple(array_merge($baseVariables, $analysisObj->getTemplateVariable()));
+    }
+
+    /**
+     * Project action
+     * Just an uncached action to create a redirect.
+     *
+     * This action is used e.g. in a form of a used action.
+     * The form will point to this action and here we redirect it
+     * back to indexAction with a cHash.
+     * With this kind of process it is possible to place a cached form
+     * with different kind of analysis on one page.
+     * Do you got a better solution? Let me know!
+     *
+     * @return void
+     */
+    public function projectAction() {
+        $request = $this->getControllerContext()->getRequest();
+
+        // If no project argument is available, redirect analysis without project argument
+        // This part is not very beautiful
+        // What happen if we add more variables?
+        if ($request->hasArgument('project') === false) {
+            $this->redirect('index');
+        }
+
+        $arguments = array(
+            'project' => intval($request->getArgument('project'))
+        );
+        $this->redirect('index', $request->getControllerName(), $request->getControllerExtensionName(), $arguments);
     }
 }

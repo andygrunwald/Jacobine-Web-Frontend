@@ -10,7 +10,10 @@ ExtensionUtility::configurePlugin(
     'Extension.' . $_EXTKEY,
     'Chart',
     array(
-        'Chart' => 'index'
+        'Chart' => 'index,project'
+    ),
+    array(
+        'Chart' => 'project'
     )
 );
 

@@ -28,6 +28,8 @@
 
 namespace Extension\Analysis\Analysis\Git;
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class CommitsOverTime
  *
@@ -38,16 +40,49 @@ namespace Extension\Analysis\Analysis\Git;
 class CommitsOverTime extends \Extension\Analysis\Analysis\Base {
 
     /**
+     * Constructor
+     *
+     * Sets the template path of this analysis
+     */
+    public function __construct() {
+        $this->setTemplate('Git' . DIRECTORY_SEPARATOR . 'CommitsOverTime');
+    }
+
+    /**
      * Generates a analysis
      *
      * @return string
      */
     public function generate() {
+        $configuration = $this->getConfiguration();
+        $activeProject = 0;
+        if (array_key_exists('project', $configuration) === true) {
+            $activeProject = intval($configuration['project']);
+        }
+
+        // Collecting git projects for select dropdown
+        $gitProjectManager = GeneralUtility::makeInstance('Extension\\Analysis\\DataManager\\GitProjects', $this->getAnalyticDatabase());
+        /* @var $gitProjectManager \Extension\Analysis\DataManager\Base */
+        $gitProjects = $gitProjectManager->getData();
+        array_unshift($gitProjects, 'All git projects');
+
         $this->setTemplateVariable(array(
             'container' => array(
                 'id' => 'chart_commitsovertime',
+            ),
+            'project' => array (
+                'values' => $gitProjects,
+                'active' => $activeProject
             )
         ));
+
+        // This part is not really beautiful.
+        // If we use a kind of this part more often, we have to outsource it
+        // A first use case of a trait?
+        if ($activeProject > 0) {
+            $javaScript = 'var project = ' . $activeProject . ';';
+            $this->setJavaScript($javaScript);
+        }
 
         $this->setJavaScriptFiles(array('Git/CommitsOverTime.js'));
 
@@ -55,18 +90,30 @@ class CommitsOverTime extends \Extension\Analysis\Analysis\Base {
     }
 
     public function getData() {
-        $dataSet = $this->execDataQuery();
+        $configuration = $this->getConfiguration();
+        $dataSet = $this->execDataQuery($configuration);
         return $this->prepareData($dataSet);
     }
 
-    private function execDataQuery() {
+    private function execDataQuery($configuration) {
         $database = $this->getAnalyticDatabase();
         /* @var $database \TYPO3\CMS\Core\Database\DatabaseConnection */
 
+        $repositoriesJoin = '';
+        if ($configuration['project'] > 0) {
+            $repositoriesJoin = '
+                INNER JOIN repositories ON (
+                    repositories.id = scmlog.repository_id
+                    AND repositories.id = ' . intval($configuration['project']) . '
+                )';
+        }
+
+        // Yes, i know. We do not need the inner join here, BUT with this inner join
+        // we got the safety that the relation exists. And this is a nice side effect :)
         $select = '
             ((UNIX_TIMESTAMP(scmlog.date) - TIME_TO_SEC(DATE_FORMAT(scmlog.date, "%H:%i:%s"))) * 1000) AS milliseconds,
             COUNT(scmlog.id) AS cnt';
-        $from = 'scmlog';
+        $from = 'scmlog' . $repositoriesJoin;
         $where = '';
         $groupBy = 'milliseconds';
         $orderBy = 'milliseconds';

@@ -1,16 +1,18 @@
 $(function() {
-    $.getJSON('/?eID=chartData&className=Git\\CommitsOverTime', function(data) {
 
-        var chart,
-            categoryValues = new Array(),
-            values = new Array();
-        /*
-        $.each(data, function(key, value) {
-            value = value / 1000 / 1000; // From Byte to Megabyte
-            categoryValues.push(key);
-            values.push(value);
-        });
-        */
+    var urlParams = '',
+        url = '/?eID=chartData&className=Git\\CommitsOverTime';
+
+    // This part is not very beautiful
+    // If we need this more often, we will outsource this to a separate function
+    if (typeof project != 'undefined') {
+        urlParams = '&project=' + parseInt(project);
+    }
+
+    url = url + urlParams;
+    $.getJSON(url, function(data) {
+
+        var chart;
 
         // The chart
         chart = $('#chart_commitsovertime').highcharts('StockChart', {

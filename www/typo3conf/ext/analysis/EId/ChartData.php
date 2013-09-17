@@ -1,12 +1,4 @@
 <?php
-/*
-$feUserObj = tslib_eidtools::initFeUser(); // Initialize FE user object
- //Connect to database
-*/
-/*
-$output = t3lib_div::makeInstance('unsereKlasse');
-$output->main();
-*/
 
 use \TYPO3\CMS\Frontend\Utility\EidUtility;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,7 +17,18 @@ try {
 
 EidUtility::connectDB();
 
-$content = $chartDataObj->getData();
+$getKeys = ['project'];
+$configuration = array(
+    'project' => 0
+);
+foreach ($getKeys as $getPart) {
+    $value = intval(GeneralUtility::_GET($getPart));
+    if ($value) {
+        $configuration[$getPart] = intval($value);
+    }
+}
+
+$content = $chartDataObj->getData($configuration);
 
 // @todo Add support for CONTENT_TYPE header like
 // \\TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler

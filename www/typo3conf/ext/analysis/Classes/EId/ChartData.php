@@ -72,8 +72,10 @@ class ChartData {
         return $this->className;
     }
 
-    public function getData() {
+    public function getData($configuration = array()) {
         $analysisObject = $this->getAnalysisObject();
+        $analysisObject->setConfiguration($configuration);
+
         $data = $analysisObject->getData();
 
         return $data;

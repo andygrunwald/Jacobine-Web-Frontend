@@ -59,7 +59,7 @@ class Facts extends \Extension\Analysis\Analysis\Base {
         $gerritProjectManager = GeneralUtility::makeInstance('Extension\\Analysis\\DataManager\\GerritProjects', $this->getAnalyticDatabase());
         /* @var $gerritProjectManager \Extension\Analysis\DataManager\Base */
         $gerritProjects = $gerritProjectManager->getData();
-        array_unshift($gerritProjects, 'All Gerrit projects');
+        $gerritProjects = array('All Gerrit projects') + $gerritProjects;
 
         // TODO add a "last updated" fact
         // TODO add more facts about first / last comment, etc.

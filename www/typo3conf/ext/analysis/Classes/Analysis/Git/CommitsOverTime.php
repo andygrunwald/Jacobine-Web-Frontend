@@ -64,7 +64,7 @@ class CommitsOverTime extends \Extension\Analysis\Analysis\Base {
         $gitProjectManager = GeneralUtility::makeInstance('Extension\\Analysis\\DataManager\\GitProjects', $this->getAnalyticDatabase());
         /* @var $gitProjectManager \Extension\Analysis\DataManager\Base */
         $gitProjects = $gitProjectManager->getData();
-        array_unshift($gitProjects, 'All git projects');
+        $gitProjects = array('All git projects') + $gitProjects;
 
         $this->setTemplateVariable(array(
             'container' => array(

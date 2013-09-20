@@ -55,7 +55,7 @@ class Facts extends \Extension\Analysis\Analysis\Base {
             $activeProject = intval($configuration['project']);
         }
 
-        // Collecting git projects for select dropdown
+        // Collecting gerrit projects for select dropdown
         $gerritProjectManager = GeneralUtility::makeInstance('Extension\\Analysis\\DataManager\\GerritProjects', $this->getAnalyticDatabase());
         /* @var $gerritProjectManager \Extension\Analysis\DataManager\Base */
         $gerritProjects = $gerritProjectManager->getData();

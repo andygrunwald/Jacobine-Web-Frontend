@@ -1,0 +1,18 @@
+<f:render partial="Projects/Dropdown" arguments="{project: project, text:'Gerrit'}" />
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Branch</th>
+        <th>Open since</th>
+    </tr>
+<f:for each="{analysis}" as="changeset" key="label">
+    <tr>
+        <td>#{changeset.changesetId}</td>
+        <td><f:link.external uri="{changeset.url}">{changeset.subject}</f:link.external></td>
+        <td>{changeset.branchName}</td>
+        <td><f:format.date format="d.m.Y - H:i:s">@{changeset.created_on}</f:format.date></td>
+    </tr>
+</f:for>
+</table>

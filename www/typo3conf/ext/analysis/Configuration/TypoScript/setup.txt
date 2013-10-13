@@ -1,20 +1,9 @@
  # Plugin configuration
 plugin.tx_analysis {
 	settings {
-
 	}
 
 	features {
 		skipDefaultArguments = 1
 	}
-
-	#persistence {
-	#	storagePid = {$plugin.tx_blogexample.persistence.storagePid}
-	#}
-	#view {
-	#	templateRootPath = {$plugin.tx_blogexample.view.templateRootPath}
-	#	partialRootPath = {$plugin.tx_blogexample.view.partialRootPath}
-	#	layoutRootPath = {$plugin.tx_blogexample.view.layoutRootPath}
-	#	defaultPid = auto
-	#}
 }

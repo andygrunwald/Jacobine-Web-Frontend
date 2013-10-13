@@ -1,0 +1,16 @@
+{namespace analysis=Extension\Analysis\ViewHelpers}
+
+<f:render partial="Projects/Dropdown" arguments="{project: project, text:'Gerrit'}" />
+
+<f:if condition="{analysis.points -> f:count()} > 0">
+    <f:then>
+        <analysis:analysis.activityMonitor points="{analysis.points}" persons="{analysis.persons}" columns="5" />
+    </f:then>
+    <f:else>
+        <div class="alert alert-block">
+            <h4>No activity :(</h4>
+            There is no activity in this Gerrit project. No Changesets, no votes, no comments.<br />
+            Be the first one and create some awesome stuff!
+        </div>
+    </f:else>
+</f:if>

@@ -6,6 +6,7 @@
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/menu.sub.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/logo.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/copyright.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:analysis/Configuration/TypoScript/Page.Default/sponsoring.ts">
 
 #########################
 # Main setup

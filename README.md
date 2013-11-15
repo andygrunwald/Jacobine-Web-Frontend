@@ -1,21 +1,20 @@
 # TYPO3-Analytics (Web)
 
-This is a website for the [TYPO3 Analytics](https://github.com/andygrunwald/TYPO3-Analytics) project. For more details please have a look at the project repository.
+This is the frontend for the [TYPO3 Analytics](https://github.com/andygrunwald/TYPO3-Analytics) project. For more details please have a look at the [TYPO3 Analytics](https://github.com/andygrunwald/TYPO3-Analytics) project repository.
 
-This website will show results, graphs and other interesting facts of the collected data.
+A online version is available at [metrics.andygrunwald.com](http://metrics.andygrunwald.com/).
 
-This website is based on [TYPO3](http://typo3.org/).
+This website is based on [TYPO3](http://typo3.org/) and will show results, graphs and other interesting facts of the collected data.
 
 *ATTENTION*: This project is highly under development and can be completely change during development. But contribution is already welcome :)
 
-## Contributing
+## Installation / Contributing
 
-* Fork and clone it (`git clone git://github.com/andygrunwald/TYPO3-Analytics-Web.git`)
-* Create your feature branch (`git checkout -b my-new-feature`)
-* Make your changes (hack hack hack)
-* Commit your changes (`git commit -am 'Add some feature'`)
-* Push to the branch (`git push origin my-new-feature`)
-* Create new Pull Request
+Oh you want to install this project on your local machine? And / Or you want to contribute? Thanks!
+
+All you need to know can be found in the blog article [Setup the TYPO3-Analytics frontend for development purpose](http://andygrunwald.blogspot.de/2013/11/setup-typo3-analytics-frontend-for.html).
+
+For contribution we use the standard process via [github pull requests](https://help.github.com/categories/63/articles). Issues (bugs, features, enhancements, etc.) will be stored in the [local issue tracker](https://github.com/andygrunwald/TYPO3-Analytics-Web/issues).
 
 ## Questions / Contact / Feedback
 

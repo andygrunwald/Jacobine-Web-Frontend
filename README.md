@@ -16,6 +16,21 @@ All you need to know can be found in the blog article [Setup the TYPO3-Analytics
 
 For contribution we use the standard process via [github pull requests](https://help.github.com/categories/63/articles). Issues (bugs, features, enhancements, etc.) will be stored in the [local issue tracker](https://github.com/andygrunwald/TYPO3-Analytics-Web/issues).
 
+## Data and Credentials
+
+### Databases
+
+[*analytics*](https://dl.dropboxusercontent.com/u/10444758/TYPO3-Analytics/2013-11-11-20-35_-_analysis.sql.tar.gz) database contains the raw data for analysis, charts and lists (git commits, TYPO3-Versions, Gerrit votes, etc.)
+
+[*typo3_analytics*](https://dl.dropboxusercontent.com/u/10444758/TYPO3-Analytics/2013-11-11-20-35_-_typo3_analysis_dev.sql.tar.gz) database contains the structure for the TYPO3 system (Pages, backend user, content, etc.)
+
+### Username and Password for TYPO3 backend
+
+```
+Username: admin
+Passwort: admin
+```
+
 ## Questions / Contact / Feedback
 
 If you got questions, feedback or want to drink a beer and talk about this project just contact me.
